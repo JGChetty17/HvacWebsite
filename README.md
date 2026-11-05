@@ -1,157 +1,141 @@
-# Advanced Air Conditioning — Front-End
+# Advanced Aircon Website — Public Customer Gateway & Catalogue
 
-The customer-facing website for Advanced Air Conditioning. Built in React with Vite and Tailwind CSS, fully responsive, and designed around one goal: turning visitors into customers.
+A comprehensive React and ASP.NET Core website for HVAC customer acquisition, product browsing, and intelligent sizing. Built to work seamlessly alongside the Advanced Aircon Android App, sharing the same Supabase backend without interfering with its operations.
 
-# Group members
+## About
 
-- ST10439133 - Camryn Naidoo
-- ST10441399 - Suvan Samlall
-- ST10451026 - Calib Frank
-- ST10446908 - Caleb Ragaven
-- ST10296234 - Joshua Chetty
-- ST10451537 - Keshvir Parthab
+The Advanced Aircon Website serves as the public-facing digital front door for Advanced Air Conditioning. It streamlines the customer journey from discovering the brand and calculating room requirements to requesting a detailed quote or booking an emergency callout all without requiring a login or app download. 
 
-## Suvan Samlall (ST10441399) is submitting our Task 2 WIL assignment on behalf of Camryn Naidoo (ST10439133) who is away and is unable to subm
+It is designed to complement the internal Android App: where the app handles authenticated field operations (manager dashboards, technician tracking), the website handles public lead generation and customer self-service.
 
-**YouTube Link Website:** https://youtu.be/cBKKlH3EnD8
+## The Problem It Solves
 
-**Website API Link:** https://github.com/ST10441359/AdvancedAirAPI.git - you can find the website api readme in this link
+HVAC businesses struggle with:
+- Slow enquiry processes reliant on phone calls and static business cards
+- Customers being unable to self-serve their own BTU sizing requirements
+- High drop-off rates due to a lack of digital product catalogues
+- Frustrating experiences where customers must phone in just to get a baseline quote
 
----
+The Advanced Aircon Website solves this with a 24/7 responsive digital showroom, an interactive BTU calculator, and frictionless lead capture forms that format data directly into the business's inbox.
+
+## Key Features
+
+### Public Digital Front Door
+- No login or registration required for customers.
+- Fully responsive design (mobile, tablet, desktop) built with Tailwind CSS.
+- Modern React (Vite) single-page application architecture.
+
+### Home Page & Brand Trust
+- Hero section with three primary CTAs: Get a Quote, Book a Callout, BTU Calculator.
+- Stats bar proving credibility (500+ jobs, 15+ years, 24/7 service, 100%).
+- Six core service categories fetched dynamically from the API.
+- "Why Choose Us" trust section featuring F-Gas certification, fixed pricing, and 12-month guarantees.
+- Emergency "AC Broken Down?" banner with a direct clickable phone number.
+
+### Live Product Catalogue
+- Full product grid fetched directly from Supabase.
+- Cards display: Name, Model, Price (ZAR), BTU rating, coverage area, and four key features.
+- Dynamic image loading from Supabase Storage.
+- Simplified customer-facing UX (the Android app retains advanced filtering for technicians).
+
+### Intelligent BTU Calculator
+- Simplified 3-field form: Room Size (m²), Number of Occupants, Room Type.
+- Instantly calculates recommended BTU range and displays matching products from the database.
+- Designed for customers at home who do not know technical HVAC sizing specifications.
+
+### Customer Enquiry & Lead Capture
+- **Book a Callout:** Fast-track emergency form capturing urgency, address, and issue description. Includes a prominent "Call Now" fallback on the success screen.
+- **Request a Quote:** Comprehensive multi-room form. Users can add/remove unlimited rooms, set urgency levels, and choose service types.
+- **Direct Email Integration:** Both forms use the direct email intergration to format all inputted data into a clean, structured email and open the user's default email client instantly.
+- **Frontend Validation:** The submit button remains strictly disabled until the user ticks the privacy consent checkbox.
+
+## Architecture
+
+The website follows a strict **Decoupled Read-Only Architecture**. 
+The React frontend handles UI and state. It makes HTTP `GET` requests to the ASP.NET Core Web API. The API queries Supabase (PostgreSQL). Crucially, the website is designed so that it only *reads* data. It never uses `POST`, `PUT`, or `DELETE` requests, guaranteeing zero interference with the Android app's database.
 
 ## Tech Stack
 
-- **React 18** — UI library
-- **TypeScript** — type safety
-- **Vite** — build tool and dev server
-- **Tailwind CSS v3** — utility-first styling
-- **React Router v6** — client-side routing
-- **Lucide React** — icon set
-- **Axios** — HTTP client (for API calls)
+| Layer | Technology |
+|-------|-----------|
+| **Frontend** | React (Vite), TypeScript, Tailwind CSS |
+| **Routing** | React Router DOM |
+| **HTTP Client** | Axios |
+| **Icons** | Lucide React |
+| **Backend** | ASP.NET Core Web API (.NET 8) |
+| **ORM** | Entity Framework Core (Npgsql) |
+| **Database** | Supabase (PostgreSQL) |
+| **Caching** | ASP.NET Core `IMemoryCache` |
+| **Forms** | React State + HTML5 Validation + `mailto:` Protocol |
+| **Frontend Hosting** | Cloudflare Pages |
+| **Backend Hosting** | Render (Docker Web Service) |
 
----
+## Getting Started
 
-## Features
+### Prerequisites
+- Node.js (v18 or newer)
+- .NET 8 SDK
+- Supabase project with a `products` and `services` table (and a public storage bucket named `products`)
 
-- Eight fully-designed pages: Home, About, Services, Products, BTU Calculator, Contact, Book a Callout, Request a Quote
-- Responsive layout — desktop
-- Product catalogue with images and details that's pulled from Supabase
-- Interactive BTU Calculator with matching product recommendations
-- Three customer forms with validation and confirmation states that save to Supabase
-- Shared Navbar and Footer across all pages
-- Custom brand palette and typography
+### Configure the Backend (ASP.NET API) locally
+1. Open the AdvancedAirAPI project.
+2. In appsettings.json (or user secrets), configure your Supabase connection string
+3. Run the API:
+   dotnet run
+   API will run on http://127.0.0.1:8080
 
----
+### Configure the Frontend (React) locally 
+1. Open the HvacWebsite project.
+2. Create a .env.local file in the root:
+   VITE_API_BASE_URL=http://127.0.0.1:8080
+3. Install dependencies and start the Vite server:
+   npm install
+   npm run dev
+   Frontend will run on http://localhost:5173
 
-## Future Improvements
+## Hosted On Cloudflare & Render
+*(Insert your deployment screenshots here)*
 
-- [ ] Mobile-first responsive design refinement
-- [ ] Server-side rendering (SSR) for improved SEO
-- [ ] Blog section for HVAC tips and company news
-- [ ] Performance optimization — code splitting and lazy loading
-- [ ] Progressive Web App (PWA) capabilities
-- [ ] Adding quick actions to phone numbers, email address and addresses of the company
-- [ ] As well as sending the customer email once a quote has been requested or they have contacted us or booked a call out for a technician 
+## Security Notes
 
----
+- **Read-Only API:** The ASP.NET API is configured to only accept `GET` requests to prevent any write-access to the shared database.
+- **Mailto Protocol:** No sensitive customer data (names, addresses, phone numbers) is stored in the database. It is formatted locally in the browser and handed off to the user's email client, ensuring POPIA compliance.
+- **CORS Configuration:** The backend is strictly configured to only accept traffic from the authorized frontend domains.
 
-## Prerequisites
+## AI Usage
 
-- **Node.js** v20 or higher
-- **npm** v10 or higher
+1. Accelerating Responsive UI Layouts (Tailwind CSS)
+We used AI to rapidly generate and troubleshoot Tailwind CSS utility classes. Instead of spending hours writing custom CSS for media queries, we used AI to help us structure the mobile-first grid layouts. For example, when ensuring the product cards scaled perfectly from a 1-column mobile view to a 3-column desktop view, AI helped us identify the correct responsive breakpoint prefixes (md: grid-cols-2 lg: grid-cols-3), which drastically sped up our styling process.
+AI Used: https://chatgpt.com/c/6aeb8388-b7ac-83ea-936c-015a330bf4
 
-Check your versions:
+2. Debugging Complex Form State & Validation
+AI was incredibly useful for debugging React state logic, specifically on the multi-room 'Request a Quote' page. When we needed to implement the strict validation logic—where the submit button stays physically greyed out and disabled until the user ticks the consent checkbox—we used AI to help us write the dynamic template literal logic for the button's className and the disabled attribute. It helped us catch edge cases we might have missed, like preventing users from submitting the form using the 'Enter' key.
+AI Used: https://chatgpt.com/c/6aeb8388-b7ac-83ea-936c-015a330bf4
 
-```bash
-node -v
-npm -v
-```
+3. Formatting the mailto: Protocol Payload
+Formatting form data into a valid mailto: URL was tricky because of the strict syntax required for email bodies. We used AI to assist in writing the encodeURIComponent JavaScript logic that loops through the multi-room array, strips out empty fields, and formats the entire form state into a clean, line-broken text string. This ensured that when the customer's email app opened, the data looked professional and was readable, rather than a messy block of text.
+AI Used: https://chatgpt.com/c/6aeb8388-b7ac-83ea-936c-015a330bf4
 
-## Available Scripts
-
-| Command | Description |
-|---|---|
-| `npm run dev` | Start the development server with hot reload |
-| `npm run build` | Build the production bundle into `dist/` |
-| `npm run preview` | Preview the production build locally |
-| `npm run lint` | Run ESLint (if configured) |
-
----
-
-## Pages Overview
-
-### Home
-Hero with primary CTAs, stats bar, services preview, "Why Choose Us" section, featured products, emergency banner.
-
-### About
-Company story, mission / vision / values, certifications grid.
-
-### Services
-Six service categories with detail cards and a red emergency callout banner that's pulled from Supabase.
-
-### Products
-Full product catalogue with image, model, price, BTU, coverage, and features per card — all information pulled from Supabase.
-
-### BTU Calculator
-Interactive tool that recommends a BTU range and matching products based on room size, occupants, and room type.
-
-### Contact
-Contact details, business hours, and a general enquiry form that saves to Supabase.
-
-### Book a Callout
-Fast-track form for customers requesting a technician visit — includes urgency, address, and issue description that saves to Supabase.
-
-### Request a Quote
-Detailed quote form with dynamic room blocks — users can add or remove rooms that saves to Supabase.
-
----
-
-## Environment Variables
-
-| Variable | Description |
-|---|---|
-| `VITE_API_BASE_URL` | Base URL of the back-end API |
-
-These are read at build time by Vite. Never commit `.env.local` or any `.env` file containing secrets.
-
----
-
-## Build for Production
-
-```bash
-npm run build
-```
-
-The output is written to `dist/`. This folder can be served by any static host.
-
-To preview the production build locally:
-
-```bash
-npm run preview
-```
-
----
-
-## AI Declaration
-
-### Declaration 1
-
-I acknowledge the use of chatgpt (https://chatgpt.com/share/6ab28c35-ed98-83e9-a94a-51d5fbfe) to generate code components, troubleshoot React and TypeScript errors, and refine the structure of this README documentation. All AI-generated code was reviewed, tested, and modified by me to ensure correctness and alignment with project requirements. The final implementation and all submitted work represent my own effort.
-
----
+## Workflow Diagram
+*(Insert your DISCOVER -> UNDERSTAND -> COMPARE -> SIZE -> QUOTE -> BOOK diagram here)*
 
 ## References
+React. 2026. React Documentation. [Online]. Available at: https://react.dev/ [Accessed: 3 November 2026].
 
-Gerchev, I., 2022. *Tailwind CSS*. Melbourne: SitePoint.
+Vite. 2026. Vite Documentation. [Online]. Available at: https://vitejs.dev/ [Accessed: 3 November 2026].
 
-Meta Platforms, Inc., 2026. *React – A JavaScript library for building user interfaces*. [online] Available at: <https://react.dev/> [Accessed 1 October 2026].
+Tailwind Labs. 2026. Tailwind CSS Documentation. [Online]. Available at: https://tailwindcss.com/ [Accessed: 2 November 2026].
 
-Minnick, C., 2022. *Beginning ReactJS Foundations Building User Interfaces with ReactJS: An Approachable Guide*. Hoboken, NJ: John Wiley & Sons.
+Microsoft. 2026. ASP.NET Core Web API Documentation. [Online]. Available at: https://learn.microsoft.com/en-us/aspnet/core/web-api/ [Accessed: 2 November 2026].
 
-Nielsen, J., 2020. *Usability engineering*. San Francisco: Morgan Kaufmann.
+Microsoft. 2026. Entity Framework Core. [Online]. Available at: https://learn.microsoft.com/en-us/ef/core/ [Accessed: 2 November 2026].
 
-Supabase, Inc., 2026. *Supabase Documentation*. [online] Available at: <https://supabase.com/docs> [Accessed 1 October 2026].
+Supabase. 2026. Supabase Documentation. [Online]. Available at: https://supabase.com/docs [Accessed: 3 November 2026].
 
-Tailwind Labs, 2026. *Tailwind CSS Documentation*. [online] Available at: <https://tailwindcss.com/> [Accessed 1 October 2026].
+Render. 2026. Deploy for Free. [Online]. Available at: https://render.com/docs/free [Accessed: 2 November 2026].
 
-Vite, 2026. *Vite – Next Generation Frontend Tooling*. [online] Available at: <https://vite.dev/> [Accessed 1 October 2026].
+Cloudflare. 2026. Cloudflare Pages Documentation. [Online]. Available at: https://developers.cloudflare.com/pages/ [Accessed: 2 November 2026].
+
+IEEE Xplore. 2025. Design and Implementation of an Intelligent Facility Management Dashboard for Commercial Buildings. [Online]. Available at: https://ieeexplore.ieee.org/document/11038388 [Accessed: 1 November 2026].
+
+IEEE Xplore. 2024. A Cloud-Based Platform for HVAC Maintenance Management and Quote Approval Workflows. [Online]. Available at: https://ieeexplore.ieee.org/document/10444775 [Accessed: 1 November 2026].
