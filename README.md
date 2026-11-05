@@ -1,3 +1,13 @@
+# INSY7315 - TEAM LOGIX
+
+ Group members:
+- ST10439133 - Camryn Naidoo
+- ST10441399 - Suvan Samlall
+- ST10451026 - Calib Frank
+- ST10446908 - Caleb Ragaven
+- ST10296234 - Joshua Chetty
+- ST10451537 - Keshvir Parthab
+
 # Advanced Aircon Website — Public Customer Gateway & Catalogue
 
 A comprehensive React and ASP.NET Core website for HVAC customer acquisition, product browsing, and intelligent sizing. Built to work seamlessly alongside the Advanced Aircon Android App, sharing the same Supabase backend without interfering with its operations.
@@ -94,7 +104,13 @@ The React frontend handles UI and state. It makes HTTP `GET` requests to the ASP
    Frontend will run on http://localhost:5173
 
 ## Hosted On Cloudflare & Render
-*(Insert your deployment screenshots here)*
+<img width="892" height="580" alt="image" src="https://github.com/user-attachments/assets/57b00179-0324-4a04-ba66-c6b1caebf6b9" />
+
+Render – AdvancedAirAPI Production Deployment Render dashboard showing the successful deployment of the AdvancedAirAPI Docker web service, with the production instance marked as Live
+
+<img width="912" height="581" alt="image" src="https://github.com/user-attachments/assets/7fc856d0-2c45-4674-b305-b66be3dde38d" />
+
+Cloudflare – AdvancedAir Frontend Production Deployment Cloudflare Workers & Pages dashboard displaying the deployment history of the AdvancedAir frontend, with the latest production deployment marked as Ready.
 
 ## Security Notes
 
@@ -117,7 +133,7 @@ Formatting form data into a valid mailto: URL was tricky because of the strict s
 AI Used: https://chatgpt.com/c/6aeb8388-b7ac-83ea-936c-015a330bf4
 
 ## Workflow Diagram
-*(Insert your DISCOVER -> UNDERSTAND -> COMPARE -> SIZE -> QUOTE -> BOOK diagram here)*
+<img width="1793" height="664" alt="image" src="https://github.com/user-attachments/assets/9d22bf50-2e0c-4377-8b21-9af14bf16f91" />
 
 ## References
 React. 2026. React Documentation. [Online]. Available at: https://react.dev/ [Accessed: 3 November 2026].
