@@ -8,6 +8,16 @@
 - ST10296234 - Joshua Chetty
 - ST10451537 - Keshvir Parthab
 
+Website Hosting Demo YouTube Link: https://youtu.be/Uxa4gDWenjY
+
+Website Walkthrough Demo YouTube Link: https://youtu.be/403yAoKpoDI?si=AOJNTbFSH48ZFpVm
+
+Website API Link: https://github.com/ST10441359/AdvancedAirAPI.git
+
+Website GitHub Link:https://github.com/ST10441359/HvacWebsite.git
+
+---
+
 # Advanced Aircon Website — Public Customer Gateway & Catalogue
 
 A comprehensive React and ASP.NET Core website for HVAC customer acquisition, product browsing, and intelligent sizing. Built to work seamlessly alongside the Advanced Aircon Android App, sharing the same Supabase backend without interfering with its operations.
