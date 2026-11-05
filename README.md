@@ -102,16 +102,16 @@ The React frontend handles UI and state. It makes HTTP `GET` requests to the ASP
 2. In appsettings.json (or user secrets), configure your Supabase connection string
 3. Run the API:
    dotnet run
-   API will run on http://127.0.0.1:8080
+   API will run on https://127.0.0.1:8080
 
 ### Configure the Frontend (React) locally 
 1. Open the HvacWebsite project.
 2. Create a .env.local file in the root:
-   VITE_API_BASE_URL=http://127.0.0.1:8080
+   VITE_API_BASE_URL=https://127.0.0.1:8080
 3. Install dependencies and start the Vite server:
    npm install
    npm run dev
-   Frontend will run on http://localhost:5173
+   Frontend will run on https://localhost:5173
 
 ## Hosted On Cloudflare & Render
 <img width="892" height="580" alt="image" src="https://github.com/user-attachments/assets/57b00179-0324-4a04-ba66-c6b1caebf6b9" />
